@@ -31,7 +31,7 @@ module.exports = (env, argv) => ({
     // 输出到 dist 目录
     path: path.join(__dirname, "dist"),
     // 使用目录名作为文件名
-    filename: "[name].js",
+    filename: "[name].user.js", // .user.js 为 Greasy Fork 用户脚本后缀
   },
   module: {
     rules: [
