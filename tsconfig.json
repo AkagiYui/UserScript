@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",                 // 编译到ES5
+    "module": "commonjs",            // 使用CommonJS模块系统
+    "strict": false,                  // 启用所有严格类型检查选项
+    "esModuleInterop": true,         // 启用esModule语法
+    "skipLibCheck": true,            // 跳过库文件的类型检查
+    "forceConsistentCasingInFileNames": true, // 强制文件名大小写一致
+    "moduleResolution": "node",      // 模块解析策略
+    "resolveJsonModule": true,       // 允许导入.json文件
+    "outDir": "./dist",              // 指定输出文件夹
+    "baseUrl": ".",                  // 基础目录，用于解析非相对模块名
+    "paths": {                       // 路径映射
+      "@/*": ["src/*"],
+    },
+    "lib": [                         // 编译时需要引入的库文件列表
+      "dom",
+      "esnext"
+    ],
+    "sourceMap": false,               // 生成相应的 `.map` 文件
+    "declaration": false,             // 生成相应的 `.d.ts` 文件
+    "removeComments": false          // 不移除注释，有助于调试
+  },
+  "include": [                       // 需要被编译文件的列表
+    "src/scripts/**/*",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [                       // 排除不需要编译的文件夹
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
