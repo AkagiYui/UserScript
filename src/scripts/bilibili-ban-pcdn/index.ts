@@ -79,7 +79,7 @@ const cleanDash = (dash: Dash): void => {
     media.backupUrl = media.backup_url = backupUrls
   }
   dash.video.forEach(cleanMedia)
-  dash.audio.forEach(cleanMedia)
+  dash.audio?.forEach(cleanMedia)
 }
 const cleanDurl = (durls: Durl[]): void => {
   durls.forEach((durl) => {

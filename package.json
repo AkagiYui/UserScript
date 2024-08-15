@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "GreasyMonkeyScripts",
   "scripts": {
-    "serve": "webpack serve --mode=development",
-    "dev": "webpack --mode=development --watch --progress",
+    "dev": "webpack --mode=production --watch --progress",
     "build": "webpack --mode=production --progress",
-    "predeploy": "pnpm run build"
+    "predeploy": "pnpm build"
   },
   "repository": {
     "type": "git",
