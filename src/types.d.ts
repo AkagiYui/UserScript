@@ -10,10 +10,6 @@ type BooleanConfigs = {
 type OriginWindow = Window & {
   Object: typeof Object;
 }
-// B站创作中心窗口
-type BilibiliCreativeCenterWindow = Window & {
-  Object: typeof Object;
-};
 // B站视频播放窗口
 type BilibiliVideoPageWindow = Window & {
   XMLHttpRequest: typeof XMLHttpRequest;

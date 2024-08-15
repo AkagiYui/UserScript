@@ -4,7 +4,7 @@ import { useLogger } from "@/utils"
 
 const log = useLogger("bilibili-show-add-p-button")
 
-const pageWindow = unsafeWindow as BilibiliCreativeCenterWindow
+const pageWindow = unsafeWindow as OriginWindow
 const originalDefineProperty = pageWindow.Object.defineProperty
 pageWindow.Object.defineProperty = function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   if (propertyKey === "showAddButton") {
