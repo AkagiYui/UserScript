@@ -21,32 +21,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 636:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-// 此文件会导出所有的工具函数，会导致引入多余的内容，请谨慎使用
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(686), exports);
-__exportStar(__webpack_require__(997), exports);
-
-
-/***/ }),
-
 /***/ 686:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -146,7 +120,7 @@ exports.useBooleanMenu = useBooleanMenu;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -160,8 +134,9 @@ var exports = __webpack_exports__;
 var __webpack_unused_export__;
 
 __webpack_unused_export__ = ({ value: true });
-const utils_1 = __webpack_require__(636);
-const { log } = (0, utils_1.useLogger)("bilibili-ban-keyboard");
+const menu_1 = __webpack_require__(997);
+const logger_1 = __webpack_require__(686);
+const { log } = (0, logger_1.useLogger)("bilibili-ban-keyboard");
 // 目标按键
 const keysInfo = [
     { name: "q", description: "点赞" },
@@ -181,7 +156,7 @@ keysInfo.forEach((value) => {
     const title = `禁用按键 ${value.title || value.name.toUpperCase()} - ${value.description}`;
     config[configKey] = { title, defaultValue: false };
 });
-const { getConfig } = (0, utils_1.useBooleanMenu)(config);
+const { getConfig } = (0, menu_1.useBooleanMenu)(config);
 // 读取配置，是否阻止特定按键
 const keysConfig = {};
 keysInfo.forEach((key) => {

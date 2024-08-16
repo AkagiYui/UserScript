@@ -1,5 +1,6 @@
 "use strict"
-import { useBooleanMenu, useLogger } from "@/utils"
+import { useBooleanMenu } from "@/utils/menu"
+import { useLogger } from "@/utils/logger"
 
 const { log } = useLogger("bilibili-ban-keyboard")
 

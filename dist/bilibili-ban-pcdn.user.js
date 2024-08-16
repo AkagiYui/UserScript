@@ -33,11 +33,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const utils_1 = __webpack_require__(636);
+const menu_1 = __webpack_require__(997);
+const logger_1 = __webpack_require__(686);
 const video_1 = __importDefault(__webpack_require__(683));
 const live_1 = __importDefault(__webpack_require__(682));
-const { debug, useLogger: subLogger } = (0, utils_1.useLogger)("bilibili-ban-pcdn");
-const { getConfig } = (0, utils_1.useBooleanMenu)({
+const { debug, useLogger: subLogger } = (0, logger_1.useLogger)("bilibili-ban-pcdn");
+const { getConfig } = (0, menu_1.useBooleanMenu)({
     blockPlayError: {
         title: "屏蔽“播放遇到问题？”提示",
         defaultValue: false,
@@ -313,32 +314,6 @@ exports["default"] = (useLogger, getConfig) => {
         return xhrOpen.apply(this, arguments);
     };
 };
-
-
-/***/ }),
-
-/***/ 636:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-// 此文件会导出所有的工具函数，会导致引入多余的内容，请谨慎使用
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(686), exports);
-__exportStar(__webpack_require__(997), exports);
 
 
 /***/ }),
