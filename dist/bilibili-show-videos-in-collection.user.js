@@ -17,65 +17,29 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 636:
+/***/ 686:
 /***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.useBooleanMenu = exports.useLogger = void 0;
+exports.useLogger = void 0;
+const createLoggerFunction = (consoleMethod, prefix, name) => (...args) => consoleMethod(prefix, name ? `[${name}]` : "", ...args);
 /**
  * 生成 Logger
  * @param name 前缀
  * @returns console.log
  */
 const useLogger = (name) => {
-    if (name) {
-        return console.log.bind(console, "AkagiYui", `[${name}]`);
-    }
-    return console.log.bind(console, "AkagiYui");
+    const prefix = "AkagiYui";
+    return {
+        log: createLoggerFunction(console.log, prefix, name),
+        warn: createLoggerFunction(console.warn, prefix, name),
+        error: createLoggerFunction(console.error, prefix, name),
+        info: createLoggerFunction(console.info, prefix, name),
+        debug: createLoggerFunction(console.debug, prefix, name),
+    };
 };
 exports.useLogger = useLogger;
-/**
- * 布尔菜单配置
- * @param configs 配置项
- * @returns 配置获取函数
- */
-const useBooleanMenu = (configs) => {
-    // 缓存
-    const cache = {};
-    // 获取配置
-    const getConfig = (key) => {
-        if (cache[key] !== undefined) {
-            return cache[key];
-        }
-        let value = GM_getValue(key, configs[key].defaultValue);
-        cache[key] = value;
-        return value;
-    };
-    // 配置注册
-    let menuIds = [];
-    const registerMenuCommand = () => {
-        menuIds.forEach((id) => {
-            GM_unregisterMenuCommand(id);
-        });
-        menuIds = [];
-        Object.entries(configs).forEach(([key, config]) => {
-            let commandName = getConfig(key) ? "✅" : "❌";
-            commandName += ` ${config.title}`;
-            let id = GM_registerMenuCommand(commandName, () => {
-                let newValue = !getConfig(key);
-                let valueToSet = config.callback ? config.callback(newValue) : newValue;
-                GM_setValue(key, valueToSet);
-                cache[key] = valueToSet;
-                registerMenuCommand();
-            });
-            menuIds.push(id);
-        });
-    };
-    registerMenuCommand();
-    return { getConfig };
-};
-exports.useBooleanMenu = useBooleanMenu;
 
 
 /***/ })
@@ -114,8 +78,8 @@ var exports = __webpack_exports__;
 var __webpack_unused_export__;
 
 __webpack_unused_export__ = ({ value: true });
-const utils_1 = __webpack_require__(636);
-const log = (0, utils_1.useLogger)("bilibili-show-videos-in-collection");
+const logger_1 = __webpack_require__(686);
+const { log } = (0, logger_1.useLogger)("bilibili-show-videos-in-collection");
 const pageWindow = unsafeWindow;
 const originalDefineProperty = pageWindow.Object.defineProperty;
 pageWindow.Object.defineProperty = function (target, propertyKey, descriptor) {

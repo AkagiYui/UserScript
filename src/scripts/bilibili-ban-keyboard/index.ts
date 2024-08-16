@@ -1,7 +1,7 @@
 "use strict"
 import { useBooleanMenu, useLogger } from "@/utils"
 
-const log = useLogger("bilibili-ban-keyboard")
+const { log } = useLogger("bilibili-ban-keyboard")
 
 // 目标按键
 const keysInfo: KeyInfo[] = [

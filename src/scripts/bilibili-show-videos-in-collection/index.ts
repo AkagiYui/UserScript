@@ -1,8 +1,8 @@
 "use strict"
 
-import { useLogger } from "@/utils"
+import { useLogger } from "@/utils/logger"
 
-const log = useLogger("bilibili-show-videos-in-collection")
+const { log } = useLogger("bilibili-show-videos-in-collection")
 
 const pageWindow = unsafeWindow as OriginWindow
 const originalDefineProperty = pageWindow.Object.defineProperty

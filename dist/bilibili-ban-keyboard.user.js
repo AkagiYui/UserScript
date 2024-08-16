@@ -22,23 +22,64 @@
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 636:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+// 此文件会导出所有的工具函数，会导致引入多余的内容，不推荐使用
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(686), exports);
+__exportStar(__webpack_require__(997), exports);
+
+
+/***/ }),
+
+/***/ 686:
 /***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.useBooleanMenu = exports.useLogger = void 0;
+exports.useLogger = void 0;
+const createLoggerFunction = (consoleMethod, prefix, name) => (...args) => consoleMethod(prefix, name ? `[${name}]` : "", ...args);
 /**
  * 生成 Logger
  * @param name 前缀
  * @returns console.log
  */
 const useLogger = (name) => {
-    if (name) {
-        return console.log.bind(console, "AkagiYui", `[${name}]`);
-    }
-    return console.log.bind(console, "AkagiYui");
+    const prefix = "AkagiYui";
+    return {
+        log: createLoggerFunction(console.log, prefix, name),
+        warn: createLoggerFunction(console.warn, prefix, name),
+        error: createLoggerFunction(console.error, prefix, name),
+        info: createLoggerFunction(console.info, prefix, name),
+        debug: createLoggerFunction(console.debug, prefix, name),
+    };
 };
 exports.useLogger = useLogger;
+
+
+/***/ }),
+
+/***/ 997:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.useBooleanMenu = void 0;
 /**
  * 布尔菜单配置
  * @param configs 配置项
@@ -104,7 +145,7 @@ exports.useBooleanMenu = useBooleanMenu;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -119,7 +160,7 @@ var __webpack_unused_export__;
 
 __webpack_unused_export__ = ({ value: true });
 const utils_1 = __webpack_require__(636);
-const log = (0, utils_1.useLogger)("bilibili-ban-keyboard");
+const { log } = (0, utils_1.useLogger)("bilibili-ban-keyboard");
 // 目标按键
 const keysInfo = [
     { name: "q", description: "点赞" },
