@@ -14,9 +14,15 @@ importers:
       clean-webpack-plugin:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.74.0(webpack-cli@5.1.4))
+      css-loader:
+        specifier: ^7.1.2
+        version: 7.1.2(webpack@5.74.0(webpack-cli@5.1.4))
       eslint-webpack-plugin:
         specifier: ^3.2.0
         version: 3.2.0(eslint@8.57.0)(webpack@5.74.0(webpack-cli@5.1.4))
+      style-loader:
+        specifier: ^4.0.0
+        version: 4.0.0(webpack@5.74.0(webpack-cli@5.1.4))
       stylelint-webpack-plugin:
         specifier: ^3.3.0
         version: 3.3.0(stylelint@14.16.1)(webpack@5.74.0(webpack-cli@5.1.4))
@@ -413,6 +419,18 @@ packages:
     resolution: {integrity: sha512-Nj5YcaGgBtuUmn1D7oHqPW0c9iui7xsTsj5lIX8ZgevdfhmjFfKB3r8moHJtNJnctnYXJyYX5I1pp90HM4TPgQ==}
     engines: {node: '>=12 || >=16'}
 
+  css-loader@7.1.2:
+    resolution: {integrity: sha512-6WvYYn7l/XEGN8Xu2vWFt9nVzrCn39vKyTEFf/ExEyoksJjjSZV/0/35XPlMbpnr6VGhZIUg5yJrL8tGfes/FA==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      '@rspack/core': 0.x || 1.x
+      webpack: ^5.27.0
+    peerDependenciesMeta:
+      '@rspack/core':
+        optional: true
+      webpack:
+        optional: true
+
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
@@ -657,6 +675,12 @@ packages:
   html-tags@3.3.1:
     resolution: {integrity: sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==}
     engines: {node: '>=8'}
+
+  icss-utils@5.1.0:
+    resolution: {integrity: sha512-soFhflCVWLfRNOPU3iv5Z9VUdT44xFRbzjLsEzSr5AQmgqPMTHdU3PMT1Cf1ssx8fLNJDA1juftYl+PUcv3MqA==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
 
   ignore@5.3.1:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
@@ -960,9 +984,6 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
-  picocolors@1.0.0:
-    resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
-
   picocolors@1.0.1:
     resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
 
@@ -992,6 +1013,30 @@ packages:
 
   postcss-media-query-parser@0.2.3:
     resolution: {integrity: sha512-3sOlxmbKcSHMjlUXQZKQ06jOswE7oVkXPxmZdoB1r5l0q6gTFTQSHxNxOrCccElbW7dxNytifNEo8qidX2Vsig==}
+
+  postcss-modules-extract-imports@3.1.0:
+    resolution: {integrity: sha512-k3kNe0aNFQDAZGbin48pL2VNidTF0w4/eASDsxlyspobzU3wZQLOGj7L9gfRe0Jo9/4uud09DsjFNH7winGv8Q==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+
+  postcss-modules-local-by-default@4.0.5:
+    resolution: {integrity: sha512-6MieY7sIfTK0hYfafw1OMEG+2bg8Q1ocHCpoWLqOKj3JXlKu4G7btkmM/B7lFubYkYWmRSPLZi5chid63ZaZYw==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+
+  postcss-modules-scope@3.2.0:
+    resolution: {integrity: sha512-oq+g1ssrsZOsx9M96c5w8laRmvEu9C3adDSjI8oTcbfkrTE8hx/zfyobUoWIxaKPO8bt6S62kxpw5GqypEw1QQ==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
+
+  postcss-modules-values@4.0.0:
+    resolution: {integrity: sha512-RDxHkAiEGI78gS2ofyvCsu7iycRv7oqw5xMWn9iMoR0N/7mf9D50ecQqUo5BZ9Zh2vH4bCUR/ktCqbB9m8vJjQ==}
+    engines: {node: ^10 || ^12 || >= 14}
+    peerDependencies:
+      postcss: ^8.1.0
 
   postcss-resolve-nested-selector@0.1.1:
     resolution: {integrity: sha512-HvExULSwLqHLgUy1rl3ANIqCsvMS0WHss2UOsXhXnQaZ9VCc2oBvIpXrl00IUFT5ZDITME0o6oiXeiHr2SAIfw==}
@@ -1171,6 +1216,12 @@ packages:
   strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
+
+  style-loader@4.0.0:
+    resolution: {integrity: sha512-1V4WqhhZZgjVAVJyt7TdDPZoPBPNHbekX4fWnCJL1yQukhCeZhJySUL+gL9y6sNdN95uEOS83Y55SqHcP7MzLA==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      webpack: ^5.27.0
 
   style-search@0.1.0:
     resolution: {integrity: sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==}
@@ -1756,6 +1807,19 @@ snapshots:
 
   css-functions-list@3.2.1: {}
 
+  css-loader@7.1.2(webpack@5.74.0(webpack-cli@5.1.4)):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.4.41)
+      postcss: 8.4.41
+      postcss-modules-extract-imports: 3.1.0(postcss@8.4.41)
+      postcss-modules-local-by-default: 4.0.5(postcss@8.4.41)
+      postcss-modules-scope: 3.2.0(postcss@8.4.41)
+      postcss-modules-values: 4.0.0(postcss@8.4.41)
+      postcss-value-parser: 4.2.0
+      semver: 7.6.0
+    optionalDependencies:
+      webpack: 5.74.0(webpack-cli@5.1.4)
+
   cssesc@3.0.0: {}
 
   debug@4.3.4:
@@ -2025,6 +2089,10 @@ snapshots:
 
   html-tags@3.3.1: {}
 
+  icss-utils@5.1.0(postcss@8.4.41):
+    dependencies:
+      postcss: 8.4.41
+
   ignore@5.3.1: {}
 
   import-fresh@3.3.0:
@@ -2287,8 +2355,6 @@ snapshots:
 
   path-type@4.0.0: {}
 
-  picocolors@1.0.0: {}
-
   picocolors@1.0.1: {}
 
   picomatch@2.3.1: {}
@@ -2308,6 +2374,27 @@ snapshots:
       find-up: 4.1.0
 
   postcss-media-query-parser@0.2.3: {}
+
+  postcss-modules-extract-imports@3.1.0(postcss@8.4.41):
+    dependencies:
+      postcss: 8.4.41
+
+  postcss-modules-local-by-default@4.0.5(postcss@8.4.41):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.4.41)
+      postcss: 8.4.41
+      postcss-selector-parser: 6.0.16
+      postcss-value-parser: 4.2.0
+
+  postcss-modules-scope@3.2.0(postcss@8.4.41):
+    dependencies:
+      postcss: 8.4.41
+      postcss-selector-parser: 6.0.16
+
+  postcss-modules-values@4.0.0(postcss@8.4.41):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.4.41)
+      postcss: 8.4.41
 
   postcss-resolve-nested-selector@0.1.1: {}
 
@@ -2478,6 +2565,10 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
+  style-loader@4.0.0(webpack@5.74.0(webpack-cli@5.1.4)):
+    dependencies:
+      webpack: 5.74.0(webpack-cli@5.1.4)
+
   style-search@0.1.0: {}
 
   stylelint-webpack-plugin@3.3.0(stylelint@14.16.1)(webpack@5.74.0(webpack-cli@5.1.4)):
@@ -2618,7 +2709,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.0
       escalade: 3.1.2
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   uri-js@4.4.1:
     dependencies:
