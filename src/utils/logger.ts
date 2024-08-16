@@ -1,17 +1,8 @@
-interface ConsoleLogger {
-  log: (...args: any[]) => void
-  warn: (...args: any[]) => void
-  error: (...args: any[]) => void
-  info: (...args: any[]) => void
-  debug: (...args: any[]) => void
-}
-
 type LoggerFunction = (...args: any[]) => void
 
 const createLoggerFunction =
   (consoleMethod: LoggerFunction, prefix: string, name?: string): LoggerFunction =>
-  (...args: any[]) =>
-    consoleMethod(prefix, name ? `[${name}]` : "", ...args)
+  consoleMethod.bind(console, prefix, name ? `[${name}]` : "")
 
 /**
  * 生成 Logger
@@ -27,5 +18,6 @@ export const useLogger = (name?: string): ConsoleLogger => {
     error: createLoggerFunction(console.error, prefix, name),
     info: createLoggerFunction(console.info, prefix, name),
     debug: createLoggerFunction(console.debug, prefix, name),
+    useLogger: (subName?: string) => useLogger(`${name ? name + ":" : ""}${subName}`),
   }
 }

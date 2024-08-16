@@ -1,3 +1,12 @@
+interface ConsoleLogger {
+  log: (...args: any[]) => void
+  warn: (...args: any[]) => void
+  error: (...args: any[]) => void
+  info: (...args: any[]) => void
+  debug: (...args: any[]) => void
+  useLogger: (name?: string) => ConsoleLogger
+}
+
 // 布尔配置项
 type BooleanConfigs = {
   [key: string]: {
@@ -7,8 +16,11 @@ type BooleanConfigs = {
   }
 }
 
+// ===========Window类型定义============
+
 type OriginWindow = Window & {
   Object: typeof Object
+  XMLHttpRequest: typeof XMLHttpRequest
   RTCPeerConnection: typeof RTCPeerConnection
   mozRTCPeerConnection?: typeof RTCPeerConnection
   webkitRTCPeerConnection?: typeof RTCPeerConnection
@@ -18,12 +30,28 @@ type OriginWindow = Window & {
 
 // B站视频播放窗口
 type BilibiliVideoPageWindow = OriginWindow & {
-  XMLHttpRequest: typeof XMLHttpRequest
-  Object: typeof Object
   connectPlayer: any
   playurlSSRData?: BangumiPlayList
   __playinfo__: PlayInfo
 }
+
+// B站直播间窗口
+type BilibiliLiveRoomWindow = OriginWindow & {
+  __NEPTUNE_IS_MY_WAIFU__: {
+    roomInitRes: BilibiliDataResponse<RoomPlayInfo>
+  }
+}
+
+// ===========API响应============
+
+type BilibiliDataResponse<T> = {
+  code: number
+  message: string
+  data: T
+  ttl?: number
+}
+
+// ===========类型定义============
 
 // 视频资源链接
 type ResourceUrl = {
@@ -72,14 +100,12 @@ type BangumiPlayList = {
     video_info?: {
       dash?: Dash
     }
+    view_info: {
+      open_prompt_bar: {
+        button: any[]
+      }
+    }
   }
-}
-
-type BilibiliDataResponse<T> = {
-  code: number
-  message: string
-  ttl: number
-  data: T
 }
 
 // 直播间信息

@@ -23,7 +23,7 @@
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.useLogger = void 0;
-const createLoggerFunction = (consoleMethod, prefix, name) => (...args) => consoleMethod(prefix, name ? `[${name}]` : "", ...args);
+const createLoggerFunction = (consoleMethod, prefix, name) => consoleMethod.bind(console, prefix, name ? `[${name}]` : "");
 /**
  * 生成 Logger
  * @param name 前缀
@@ -37,6 +37,7 @@ const useLogger = (name) => {
         error: createLoggerFunction(console.error, prefix, name),
         info: createLoggerFunction(console.info, prefix, name),
         debug: createLoggerFunction(console.debug, prefix, name),
+        useLogger: (subName) => (0, exports.useLogger)(`${name ? name + ":" : ""}${subName}`),
     };
 };
 exports.useLogger = useLogger;

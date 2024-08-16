@@ -25,7 +25,7 @@
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
-// 此文件会导出所有的工具函数，会导致引入多余的内容，不推荐使用
+// 此文件会导出所有的工具函数，会导致引入多余的内容，请谨慎使用
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -53,7 +53,7 @@ __exportStar(__webpack_require__(997), exports);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.useLogger = void 0;
-const createLoggerFunction = (consoleMethod, prefix, name) => (...args) => consoleMethod(prefix, name ? `[${name}]` : "", ...args);
+const createLoggerFunction = (consoleMethod, prefix, name) => consoleMethod.bind(console, prefix, name ? `[${name}]` : "");
 /**
  * 生成 Logger
  * @param name 前缀
@@ -67,6 +67,7 @@ const useLogger = (name) => {
         error: createLoggerFunction(console.error, prefix, name),
         info: createLoggerFunction(console.info, prefix, name),
         debug: createLoggerFunction(console.debug, prefix, name),
+        useLogger: (subName) => (0, exports.useLogger)(`${name ? name + ":" : ""}${subName}`),
     };
 };
 exports.useLogger = useLogger;
