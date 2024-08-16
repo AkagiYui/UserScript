@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         【哔哩哔哩】显示合集中的视频
-// @version      0.1.1
+// @version      0.1.2
 // @description  已登录且以自己视角查看时，显示合集中的视频。
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://space.bilibili.com/*
