@@ -34,7 +34,7 @@ keysInfo.forEach((key) => {
 
 // 阻止特定按键的函数
 function preventCertainKeys(e: { key: string; stopPropagation: () => void; preventDefault: () => void }) {
-  if (getConfig(`block${e.key}`)) {
+  if (config[`block${e.key}`] && getConfig(`block${e.key}`)) {
     log("阻止按键", e.key)
     e.stopPropagation()
     e.preventDefault()
