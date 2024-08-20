@@ -71,7 +71,7 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
     }
     dash.video.forEach(cleanMedia)
     dash.audio?.forEach(cleanMedia) // 部分视频没有音频流
-    dash.flac.audio && cleanMedia(dash.flac.audio) // Hi-Res
+    dash.flac?.audio && cleanMedia(dash.flac.audio) // Hi-Res
   }
   const cleanDurl = (durls: Durl[]): void => {
     durls.forEach((durl) => {
