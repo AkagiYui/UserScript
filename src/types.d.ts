@@ -64,6 +64,9 @@ type ResourceUrl = {
 type Dash = {
   video: ResourceUrl[]
   audio?: ResourceUrl[]
+  flac: {
+    audio: ResourceUrl | null
+  }
 }
 // 试看链接
 type Durl = {

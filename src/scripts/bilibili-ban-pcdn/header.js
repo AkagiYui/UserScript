@@ -1,7 +1,7 @@
 module.exports = () =>
   `// ==UserScript==
 // @name         【哔哩哔哩】屏蔽视频PCDN地址
-// @version      0.3.0
+// @version      0.3.1
 // @description  从官方CDN加载视频
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://www.bilibili.com/video/*
