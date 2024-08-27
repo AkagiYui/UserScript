@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         【哔哩哔哩】按键禁用
-// @version      0.2.3
+// @version      0.2.4
 // @description  白嫖万岁
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://www.bilibili.com/video/*
@@ -167,7 +167,6 @@ function preventCertainKeys(e) {
     if (config[`block${e.key}`] && getConfig(`block${e.key}`)) {
         log("阻止按键", e.key);
         e.stopPropagation();
-        e.preventDefault();
     }
 }
 document.addEventListener("keydown", preventCertainKeys);

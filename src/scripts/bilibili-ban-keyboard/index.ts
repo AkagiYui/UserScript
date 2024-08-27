@@ -37,7 +37,6 @@ function preventCertainKeys(e: { key: string; stopPropagation: () => void; preve
   if (config[`block${e.key}`] && getConfig(`block${e.key}`)) {
     log("阻止按键", e.key)
     e.stopPropagation()
-    e.preventDefault()
   }
 }
 
