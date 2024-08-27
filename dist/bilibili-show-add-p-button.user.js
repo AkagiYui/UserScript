@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         【哔哩哔哩】添加分P
-// @version      0.2.1
+// @version      0.2.2
 // @description  显示“添加分P”的按钮
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://member.bilibili.com/platform/*
@@ -97,6 +97,15 @@ pageWindow.Object.defineProperty = function (target, propertyKey, descriptor) {
         // 为确保在转到其他路由再次加载时仍然有效，此处不可恢复defineProperty。
     }
     return originalDefineProperty(target, propertyKey, descriptor);
+};
+const originalXHR = pageWindow.XMLHttpRequest;
+const xhrOpen = originalXHR.prototype.open;
+originalXHR.prototype.open = function (_, url) {
+    if (arguments[1].includes("/x/vu/web/add/v3")) {
+        log("请求分P投稿", JSON.parse(JSON.stringify(arguments)));
+        arguments[1] = arguments[1].replace("/x/vu/web/add/v3", "/x/vu/web/add");
+    }
+    return xhrOpen.apply(this, arguments);
 };
 
 })();

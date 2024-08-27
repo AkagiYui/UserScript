@@ -1,7 +1,7 @@
 module.exports = () =>
   `// ==UserScript==
 // @name         【哔哩哔哩】添加分P
-// @version      0.2.1
+// @version      0.2.2
 // @description  显示“添加分P”的按钮
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://member.bilibili.com/platform/*
