@@ -11,13 +11,15 @@ GM_registerMenuCommand("修改高度值", function () {
   }
 })
 
+// base-video-sections-v1: 带封面的视频列表
+// video-sections-v1: 普通视频列表
 function updateStyles() {
   GM_addStyle(`
-    .video-sections-content-list {
+    .base-video-sections-v1, .video-sections-v1 {
+      .video-sections-content-list {
         height: auto !important;
-    }
-    .base-video-sections-v1 .video-sections-content-list {
         max-height: ${maxHeight} !important;
+      }
     }
     .multi-page-v1 .cur-list {
         max-height: ${maxHeight} !important;
