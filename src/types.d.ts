@@ -64,6 +64,9 @@ type ResourceUrl = {
 type Dash = {
   video: ResourceUrl[]
   audio?: ResourceUrl[]
+  dolby: {
+    audio: ResourceUrl[] | null
+  }
   flac: {
     audio: ResourceUrl | null
   }

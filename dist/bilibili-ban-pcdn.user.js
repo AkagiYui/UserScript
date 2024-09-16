@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         【哔哩哔哩】屏蔽视频PCDN地址
-// @version      0.3.2
+// @version      0.3.3
 // @description  从官方CDN加载视频
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://www.bilibili.com/video/*
@@ -261,6 +261,7 @@ exports["default"] = (useLogger, getConfig) => {
         };
         dash.video.forEach(cleanMedia);
         dash.audio?.forEach(cleanMedia); // 部分视频没有音频流
+        dash.dolby?.audio && dash.dolby.audio.forEach(cleanMedia); // 杜比
         dash.flac?.audio && cleanMedia(dash.flac.audio); // Hi-Res
     };
     const cleanDurl = (durls) => {
