@@ -23,6 +23,7 @@
 | [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】修改选集列表框高度** | 自定义选集列表的高度 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/489366)** |
 | [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】显示合集中的视频** | 已登录且以自己视角查看时，显示合集中的视频 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/503546)** |
 | [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】合集杀手** | 批量处理自己订阅的合集。 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/503859)** |
+| [<img src="https://cdn.yopu.co/img/logo.bd260b19.svg" height="16px" />](https://github.com/AkagiYui) | **【有谱么】阻止弹窗** | 阻止播放时弹出「提示登录」或「使用手机APP打开」的弹窗。 | **[GreasyFork](https://greasyfork.org/scripts/510278)** |
 
 > [!TIP]
 > _所有脚本均没有在 **Chrome、Firefox、Edge 浏览器 + Tampermonkey 扩展** 环境下测试通过！_
