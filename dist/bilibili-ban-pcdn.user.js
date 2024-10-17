@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         【哔哩哔哩】屏蔽视频PCDN地址
-// @version      0.3.3
+// @version      0.3.4
 // @description  从官方CDN加载视频
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://www.bilibili.com/video/*
@@ -50,6 +50,10 @@ const { getConfig } = (0, menu_1.useBooleanMenu)({
     blockLivePCDN: {
         title: "屏蔽直播PCDN",
         defaultValue: false,
+    },
+    keepOneUrl: {
+        title: "保留至少一条播放链接",
+        defaultValue: true,
     },
 });
 const matchUrls = {
@@ -191,23 +195,36 @@ exports["default"] = (useLogger, getConfig) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const PCDN_REGEX_PATTERN = /mcdn.bilivideo.(com|cn)/;
+const BCACHE_REGEX_PATTERN = /(cn-.*\.bilivideo\.(com|cn))/;
 exports["default"] = (useLogger, getConfig) => {
     const { log, debug } = useLogger("video");
     const pageWindow = unsafeWindow;
     // 挑出有用的链接
     const removeSomeUrls = (allUrls) => {
-        const whichToRemove = [/mcdn.bilivideo.(com|cn)/];
-        if (getConfig("blockBCacheCDN")) {
-            whichToRemove.push(/(cn-.*\.bilivideo\.(com|cn))/);
+        const keepOneUrl = getConfig("keepOneUrl");
+        const blockBCacheCDN = getConfig("blockBCacheCDN");
+        const filterUrls = (urls, pattern) => {
+            return urls.filter((url) => {
+                const keep = !pattern.test(url);
+                debug("保留链接", keep, url);
+                return keep;
+            });
+        };
+        const applyFilter = (urls, pattern, filterName) => {
+            debug(`过滤${filterName}链接`);
+            const filteredUrls = filterUrls(urls, pattern);
+            if (filteredUrls.length === 0) {
+                debug(`仅包含${filterName}链接，${keepOneUrl ? "保留所有播放链接" : "无可用链接"}`);
+                return keepOneUrl ? urls : [];
+            }
+            return filteredUrls;
+        };
+        let restUrls = applyFilter(allUrls, PCDN_REGEX_PATTERN, "PCDN");
+        if (blockBCacheCDN) {
+            restUrls = applyFilter(restUrls, BCACHE_REGEX_PATTERN, "自建地区CDN");
         }
-        const urls = allUrls.filter((url) => {
-            const needRemove = whichToRemove.some((re) => re.test(url));
-            debug("链接", url, needRemove);
-            return !needRemove;
-        });
-        const baseUrl = urls[0];
-        const backupUrls = urls.slice(1);
-        return { baseUrl, backupUrls };
+        return { baseUrl: restUrls[0], backupUrls: restUrls.slice(1) };
     };
     // 处理资源数据
     const cleanPlayInfo = (playInfo) => {

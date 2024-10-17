@@ -18,6 +18,10 @@ const { getConfig } = useBooleanMenu({
     title: "屏蔽直播PCDN",
     defaultValue: false,
   },
+  keepOneUrl: {
+    title: "保留至少一条播放链接",
+    defaultValue: true,
+  },
 })
 const matchUrls = {
   live: ["https://www.bilibili.com/blackboard/live/live-activity-player.html", "https://live.bilibili.com/"],

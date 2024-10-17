@@ -1,3 +1,6 @@
+const PCDN_REGEX_PATTERN = /mcdn.bilivideo.(com|cn)/
+const BCACHE_REGEX_PATTERN = /(cn-.*\.bilivideo\.(com|cn))/
+
 export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => boolean) => {
   const { log, debug } = useLogger("video")
 
@@ -5,18 +8,31 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
 
   // 挑出有用的链接
   const removeSomeUrls = (allUrls: string[]) => {
-    const whichToRemove = [/mcdn.bilivideo.(com|cn)/]
-    if (getConfig("blockBCacheCDN")) {
-      whichToRemove.push(/(cn-.*\.bilivideo\.(com|cn))/)
+    const keepOneUrl = getConfig("keepOneUrl")
+    const blockBCacheCDN = getConfig("blockBCacheCDN")
+    
+    const filterUrls = (urls: string[], pattern: RegExp): string[] => {
+      return urls.filter((url) => {
+        const keep = !pattern.test(url)
+        debug("保留链接", keep, url)
+        return keep
+      })
     }
-    const urls = allUrls.filter((url) => {
-      const needRemove = whichToRemove.some((re) => re.test(url))
-      debug("链接", url, needRemove)
-      return !needRemove
-    })
-    const baseUrl = urls[0]
-    const backupUrls = urls.slice(1)
-    return { baseUrl, backupUrls }
+    const applyFilter = (urls: string[], pattern: RegExp, filterName: string): string[] => {
+      debug(`过滤${filterName}链接`)
+      const filteredUrls = filterUrls(urls, pattern)
+      if (filteredUrls.length === 0) {
+        debug(`仅包含${filterName}链接，${keepOneUrl ? "保留所有播放链接" : "无可用链接"}`)
+        return keepOneUrl ? urls : []
+      }
+      return filteredUrls
+    }
+
+    let restUrls = applyFilter(allUrls, PCDN_REGEX_PATTERN, "PCDN")
+    if (blockBCacheCDN) {
+      restUrls = applyFilter(restUrls, BCACHE_REGEX_PATTERN, "自建地区CDN")
+    }
+    return { baseUrl: restUrls[0], backupUrls: restUrls.slice(1) }
   }
 
   // 处理资源数据
@@ -118,7 +134,7 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
         get: () => {
           const response = getter.call(this)
           const responseJson: BangumiPlayList = JSON.parse(response)
-          cleanPlayInfo(responseJson as PlayInfo)
+          cleanPlayInfo(responseJson as unknown as PlayInfo)
           return JSON.stringify(responseJson)
         },
       })
