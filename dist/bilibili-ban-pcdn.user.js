@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         【哔哩哔哩】屏蔽视频PCDN地址
-// @version      0.3.4
+// @version      0.3.5
 // @description  从官方CDN加载视频
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://www.bilibili.com/video/*
@@ -110,15 +110,17 @@ exports["default"] = (useLogger, getConfig) => {
     // 屏蔽直播P2P视频流信息
     if (getConfig("blockLivePCDN")) {
         function processPlayurlInfo(playurlInfo) {
+            if (!playurlInfo)
+                return;
             playurlInfo.p2p_data.m_p2p = false;
             playurlInfo.p2p_data.m_servers = null;
             playurlInfo.stream.forEach((stream) => {
                 stream.format.forEach((format) => {
                     format.codec.forEach((codec) => {
                         codec.url_info = codec.url_info.filter((urlInfo) => {
-                            const needRemove = urlInfo.host.includes("mcdn.bilivideo");
-                            debug("处理中", urlInfo.host, needRemove);
-                            return !needRemove;
+                            const keep = !urlInfo.host.includes("mcdn.bilivideo");
+                            debug("保留链接", keep, urlInfo.host);
+                            return keep;
                         });
                     });
                 });
@@ -130,9 +132,9 @@ exports["default"] = (useLogger, getConfig) => {
             get: () => __NEPTUNE_IS_MY_WAIFU__,
             set: (value) => {
                 if (value.roomInitRes) {
-                    log("直播房间信息", "fetch", "处理前", JSON.parse(JSON.stringify(value.roomInitRes)));
-                    processPlayurlInfo(value.roomInitRes.data.playurl_info.playurl);
-                    log("直播房间信息", "fetch", "处理后", JSON.parse(JSON.stringify(value.roomInitRes)));
+                    log("直播房间信息", "处理前", JSON.parse(JSON.stringify(value.roomInitRes)));
+                    processPlayurlInfo(value.roomInitRes.data.playurl_info?.playurl);
+                    log("直播房间信息", "处理后", JSON.parse(JSON.stringify(value.roomInitRes)));
                 }
                 __NEPTUNE_IS_MY_WAIFU__ = value;
             },
@@ -148,9 +150,9 @@ exports["default"] = (useLogger, getConfig) => {
                             response.json = function () {
                                 return new Promise((resolve, reject) => {
                                     oldJson.apply(this, arguments).then((result) => {
-                                        log("直播列表", "处理前", JSON.parse(JSON.stringify(result)));
-                                        processPlayurlInfo(result.data.playurl_info.playurl);
-                                        log("直播列表", "处理后", JSON.parse(JSON.stringify(result)));
+                                        log("直播列表", "fetch", "处理前", JSON.parse(JSON.stringify(result)));
+                                        processPlayurlInfo(result.data.playurl_info?.playurl);
+                                        log("直播列表", "fetch", "处理后", JSON.parse(JSON.stringify(result)));
                                         resolve(result);
                                     });
                                 });
@@ -175,7 +177,7 @@ exports["default"] = (useLogger, getConfig) => {
                         const response = getter.call(this);
                         const responseJson = JSON.parse(response);
                         log("直播列表", "xhr", "处理前", JSON.parse(JSON.stringify(responseJson)));
-                        processPlayurlInfo(responseJson.data.playurl_info.playurl);
+                        processPlayurlInfo(responseJson.data.playurl_info?.playurl);
                         log("直播列表", "xhr", "处理后", JSON.parse(JSON.stringify(responseJson)));
                         return JSON.stringify(responseJson);
                     },

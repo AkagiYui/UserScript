@@ -5,15 +5,16 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
   // 屏蔽直播P2P视频流信息
   if (getConfig("blockLivePCDN")) {
     function processPlayurlInfo(playurlInfo: RoomPlayInfo["playurl_info"]["playurl"]): void {
+      if (!playurlInfo) return
       playurlInfo.p2p_data.m_p2p = false
       playurlInfo.p2p_data.m_servers = null
       playurlInfo.stream.forEach((stream) => {
         stream.format.forEach((format) => {
           format.codec.forEach((codec) => {
             codec.url_info = codec.url_info.filter((urlInfo) => {
-              const needRemove = urlInfo.host.includes("mcdn.bilivideo")
-              debug("处理中", urlInfo.host, needRemove)
-              return !needRemove
+              const keep = !urlInfo.host.includes("mcdn.bilivideo")
+              debug("保留链接", keep, urlInfo.host)
+              return keep
             })
           })
         })
@@ -26,9 +27,9 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
       get: () => __NEPTUNE_IS_MY_WAIFU__,
       set: (value: any) => {
         if (value.roomInitRes) {
-          log("直播房间信息", "fetch", "处理前", JSON.parse(JSON.stringify(value.roomInitRes)))
-          processPlayurlInfo(value.roomInitRes.data.playurl_info.playurl)
-          log("直播房间信息", "fetch", "处理后", JSON.parse(JSON.stringify(value.roomInitRes)))
+          log("直播房间信息", "处理前", JSON.parse(JSON.stringify(value.roomInitRes)))
+          processPlayurlInfo(value.roomInitRes.data.playurl_info?.playurl)
+          log("直播房间信息", "处理后", JSON.parse(JSON.stringify(value.roomInitRes)))
         }
         __NEPTUNE_IS_MY_WAIFU__ = value
       },
@@ -45,9 +46,9 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
               response.json = function () {
                 return new Promise((resolve, reject) => {
                   oldJson.apply(this, arguments).then((result: BilibiliDataResponse<RoomPlayInfo>) => {
-                    log("直播列表", "处理前", JSON.parse(JSON.stringify(result)))
-                    processPlayurlInfo(result.data.playurl_info.playurl)
-                    log("直播列表", "处理后", JSON.parse(JSON.stringify(result)))
+                    log("直播列表", "fetch", "处理前", JSON.parse(JSON.stringify(result)))
+                    processPlayurlInfo(result.data.playurl_info?.playurl)
+                    log("直播列表", "fetch", "处理后", JSON.parse(JSON.stringify(result)))
                     resolve(result)
                   })
                 })
@@ -73,7 +74,7 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
             const response = getter.call(this)
             const responseJson: BilibiliDataResponse<RoomPlayInfo> = JSON.parse(response)
             log("直播列表", "xhr", "处理前", JSON.parse(JSON.stringify(responseJson)))
-            processPlayurlInfo(responseJson.data.playurl_info.playurl)
+            processPlayurlInfo(responseJson.data.playurl_info?.playurl)
             log("直播列表", "xhr", "处理后", JSON.parse(JSON.stringify(responseJson)))
             return JSON.stringify(responseJson)
           },
