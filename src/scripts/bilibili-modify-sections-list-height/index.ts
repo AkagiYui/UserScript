@@ -24,6 +24,9 @@ function updateStyles() {
     .multi-page-v1 .cur-list {
         max-height: ${maxHeight} !important;
     }
+    .video-pod__body {
+        max-height: ${maxHeight} !important;
+    }
   `)
 }
 

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         【哔哩哔哩】修改选集列表框高度
-// @version      0.2.1
+// @version      0.2.2
 // @description  默认的高度也太小了吧！
 // @icon         https://static.hdslb.com/images/favicon.ico
 // @match        https://www.bilibili.com/video/*
@@ -40,6 +40,9 @@ function updateStyles() {
       }
     }
     .multi-page-v1 .cur-list {
+        max-height: ${maxHeight} !important;
+    }
+    .video-pod__body {
         max-height: ${maxHeight} !important;
     }
   `);
