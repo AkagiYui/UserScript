@@ -98,14 +98,17 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
     })
   }
   // 播放器初始化参数
-  let __playinfo__ = pageWindow.__playinfo__
+  let __playinfo__ = pageWindow.__playinfo__;
   Object.defineProperty(pageWindow, "__playinfo__", {
-    get: () => __playinfo__,
-    set: (value: PlayInfo) => {
-      log("初始化参数", value)
-      cleanPlayInfo(value)
-      __playinfo__ = value
-    },
+      get: () => {
+          cleanPlayInfo(__playinfo__);
+          return __playinfo__;
+      },
+      set: (value) => {
+       log("初始化参数", value)
+       cleanPlayInfo(value)
+       __playinfo__ = value
+      },
   })
   // 播放列表请求处理
   const originalXHR = pageWindow.XMLHttpRequest
