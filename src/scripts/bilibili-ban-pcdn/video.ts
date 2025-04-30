@@ -98,18 +98,53 @@ export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => 
     })
   }
   // 播放器初始化参数
-  let __playinfo__ = pageWindow.__playinfo__;
+  let currentPlayinfoState = pageWindow.__playinfo__;
+
   Object.defineProperty(pageWindow, "__playinfo__", {
-      get: () => {
-          cleanPlayInfo(__playinfo__);
-          return __playinfo__;
-      },
-      set: (value) => {
-       log("初始化参数", value)
-       cleanPlayInfo(value)
-       __playinfo__ = value
-      },
-  })
+    get: () => {
+      // Getter 现在可以直接返回当前状态，因为初始值已处理
+      // 如果担心 B站 可能在不通过 setter 的情况下修改它，可以在这里再次调用 cleanPlayInfo，但这通常没必要
+      // debug("Getter: 返回 currentPlayinfoState");
+      return currentPlayinfoState;
+    },
+    set: (value) => {
+      // Setter 处理后续的赋值（例如SPA切换视频）
+      log("处理更新的 __playinfo__ (setter)", value);
+      try {
+        cleanPlayInfo(value); // 清理新赋的值
+        currentPlayinfoState = value; // 更新闭包中的状态
+      } catch (e) {
+        log("处理 setter 中的 __playinfo__ 时出错:", e);
+      }
+    },
+    configurable: true // 允许后续可能的操作，虽然通常不需要
+  });
+  // --- 修改 Object.defineProperty 逻辑结束 ---
+
+  const observer = new MutationObserver((mutationsList, observer) => {
+    if (typeof pageWindow.nano !== 'undefined') {
+      log("Window.nano 已加载，开始 hook...");
+      // 在这里执行你的 hook 代码 (例如上面的方法 1 或 2)
+      const originalCreatePlayer = pageWindow.nano.createPlayer;
+      // 定义我们自己的 nano.createPlayer 函数
+      pageWindow.nano.createPlayer = function(config) {
+        log("原始 primarySetting/config:", config);
+        // 在这里修改 primarySetting 对象
+        if(config.prefetch){
+          cleanPlayInfo(config.prefetch.playUrl)
+          log("修改后的 primarySetting/config:", config);
+        }
+        const theme = arguments[1]
+        // 调用原始的 nano.createPlayer 函数，并将修改后的 primarySetting 传递给它
+        return originalCreatePlayer.call(this, config, theme);
+      };
+      observer.disconnect(); // 停止监听
+    }
+  });
+  observer.observe(document.documentElement || document.body, {
+    childList: true,
+    subtree: true
+  });
   // 播放列表请求处理
   const originalXHR = pageWindow.XMLHttpRequest
   const xhrOpen = originalXHR.prototype.open
