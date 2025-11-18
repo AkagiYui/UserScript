@@ -21,35 +21,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 686:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.useLogger = void 0;
-const createLoggerFunction = (consoleMethod, prefix, name) => consoleMethod.bind(console, prefix, name ? `[${name}]` : "");
-/**
- * 生成 Logger
- * @param name 前缀
- * @returns console.log
- */
-const useLogger = (name) => {
-    const prefix = "AkagiYui";
-    return {
-        log: createLoggerFunction(console.log, prefix, name),
-        warn: createLoggerFunction(console.warn, prefix, name),
-        error: createLoggerFunction(console.error, prefix, name),
-        info: createLoggerFunction(console.info, prefix, name),
-        debug: createLoggerFunction(console.debug, prefix, name),
-        useLogger: (subName) => (0, exports.useLogger)(`${name ? name + ":" : ""}${subName}`),
-    };
-};
-exports.useLogger = useLogger;
-
-
-/***/ }),
-
-/***/ 997:
+/***/ 324:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -98,6 +70,34 @@ const useBooleanMenu = (configs) => {
 exports.useBooleanMenu = useBooleanMenu;
 
 
+/***/ }),
+
+/***/ 679:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.useLogger = void 0;
+const createLoggerFunction = (consoleMethod, prefix, name) => consoleMethod.bind(console, prefix, name ? `[${name}]` : "");
+/**
+ * 生成 Logger
+ * @param name 前缀
+ * @returns console.log
+ */
+const useLogger = (name) => {
+    const prefix = "AkagiYui";
+    return {
+        log: createLoggerFunction(console.log, prefix, name),
+        warn: createLoggerFunction(console.warn, prefix, name),
+        error: createLoggerFunction(console.error, prefix, name),
+        info: createLoggerFunction(console.info, prefix, name),
+        debug: createLoggerFunction(console.debug, prefix, name),
+        useLogger: (subName) => (0, exports.useLogger)(`${name ? name + ":" : ""}${subName}`),
+    };
+};
+exports.useLogger = useLogger;
+
+
 /***/ })
 
 /******/ 	});
@@ -128,14 +128,14 @@ exports.useBooleanMenu = useBooleanMenu;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
 (() => {
 var exports = __webpack_exports__;
 var __webpack_unused_export__;
 
 __webpack_unused_export__ = ({ value: true });
-const menu_1 = __webpack_require__(997);
-const logger_1 = __webpack_require__(686);
+const menu_1 = __webpack_require__(324);
+const logger_1 = __webpack_require__(679);
 const { log } = (0, logger_1.useLogger)("bilibili-ban-keyboard");
 // 目标按键
 const keysInfo = [

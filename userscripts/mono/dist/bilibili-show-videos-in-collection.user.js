@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         【哔哩哔哩】添加分P
-// @version      0.2.2
-// @description  显示“添加分P”的按钮
+// @name         【哔哩哔哩】显示合集中的视频
+// @version      0.1.2
+// @description  已登录且以自己视角查看时，显示合集中的视频。
 // @icon         https://static.hdslb.com/images/favicon.ico
-// @match        https://member.bilibili.com/platform/*
+// @match        https://space.bilibili.com/*
 // @grant        unsafeWindow
 // @run-at       document-start
 // @namespace    https://github.com/AkagiYui/UserScript
@@ -17,7 +17,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 686:
+/***/ 679:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -73,39 +73,34 @@ exports.useLogger = useLogger;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
 (() => {
 var exports = __webpack_exports__;
 var __webpack_unused_export__;
 
 __webpack_unused_export__ = ({ value: true });
-const logger_1 = __webpack_require__(686);
-const { log } = (0, logger_1.useLogger)("bilibili-show-add-p-button");
+const logger_1 = __webpack_require__(679);
+const { log } = (0, logger_1.useLogger)("bilibili-show-videos-in-collection");
 const pageWindow = unsafeWindow;
 const originalDefineProperty = pageWindow.Object.defineProperty;
 pageWindow.Object.defineProperty = function (target, propertyKey, descriptor) {
-    if (propertyKey === "showAddButton") {
-        originalDefineProperty(target, "canMultiP", {
+    if (propertyKey === "visibleVideoList") {
+        log("定义 应显示视频列表", target, descriptor, descriptor.get, descriptor.set);
+        const originGetter = descriptor.get.bind(target);
+        return originalDefineProperty(target, propertyKey, {
             configurable: true,
             enumerable: true,
-            get: () => {
-                log("显示添加分P按钮");
-                return true;
+            get: function () {
+                log("获取 应显示视频列表", this);
+                // favListDetails: 收藏夹视频列表
+                // submitVideos: 投稿视频列表
+                return this.favListDetails?.medias ?? this.submitVideos?.vlist ?? originGetter();
             },
             set: () => { },
         });
         // 为确保在转到其他路由再次加载时仍然有效，此处不可恢复defineProperty。
     }
     return originalDefineProperty(target, propertyKey, descriptor);
-};
-const originalXHR = pageWindow.XMLHttpRequest;
-const xhrOpen = originalXHR.prototype.open;
-originalXHR.prototype.open = function (_, url) {
-    if (arguments[1].includes("/x/vu/web/add/v3")) {
-        log("请求分P投稿", JSON.parse(JSON.stringify(arguments)));
-        arguments[1] = arguments[1].replace("/x/vu/web/add/v3", "/x/vu/web/add");
-    }
-    return xhrOpen.apply(this, arguments);
 };
 
 })();

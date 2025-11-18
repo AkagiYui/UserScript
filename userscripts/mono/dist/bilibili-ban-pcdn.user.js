@@ -25,81 +25,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 507:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const menu_1 = __webpack_require__(997);
-const logger_1 = __webpack_require__(686);
-const video_1 = __importDefault(__webpack_require__(683));
-const live_1 = __importDefault(__webpack_require__(682));
-const { debug, useLogger: subLogger } = (0, logger_1.useLogger)("bilibili-ban-pcdn");
-const { getConfig } = (0, menu_1.useBooleanMenu)({
-    blockPlayError: {
-        title: "屏蔽“播放遇到问题？”提示",
-        defaultValue: false,
-    },
-    blockBCacheCDN: {
-        title: "屏蔽视频地区CDN",
-        defaultValue: false,
-    },
-    blockLivePCDN: {
-        title: "屏蔽直播PCDN",
-        defaultValue: false,
-    },
-    keepOneUrl: {
-        title: "保留至少一条播放链接",
-        defaultValue: true,
-    },
-});
-const matchUrls = {
-    live: ["https://www.bilibili.com/blackboard/live/live-activity-player.html", "https://live.bilibili.com/"],
-    video: ["https://www.bilibili.com/video/", "https://www.bilibili.com/list/"],
-    bangumi: ["https://www.bilibili.com/bangumi/play/"],
-};
-const getUrlType = (url) => {
-    for (const [type, patterns] of Object.entries(matchUrls)) {
-        for (const pattern of patterns) {
-            if (url.includes(pattern)) {
-                return type;
-            }
-        }
-    }
-    return null;
-};
-const pageWindow = unsafeWindow;
-// 屏蔽“播放遇到问题？”提示
-if (getConfig("blockPlayError")) {
-    const originalDefineProperty = pageWindow.Object.defineProperty;
-    pageWindow.Object.defineProperty = function (target, propertyKey, descriptor) {
-        if (propertyKey === "videoHasBuffered") {
-            originalDefineProperty(target, "showLoadTimeoutFeedback", {
-                get: () => () => {
-                    debug("屏蔽“播放遇到问题？”提示");
-                },
-                set: () => {
-                    pageWindow.Object.defineProperty = originalDefineProperty;
-                },
-            });
-        }
-        return originalDefineProperty(target, propertyKey, descriptor);
-    };
-}
-if (getUrlType(location.href) === "video" || getUrlType(location.href) === "bangumi") {
-    (0, video_1.default)(subLogger, getConfig);
-}
-else if (getUrlType(location.href) === "live") {
-    (0, live_1.default)(subLogger, getConfig);
-}
-
-
-/***/ }),
-
-/***/ 682:
+/***/ 255:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -192,7 +118,58 @@ exports["default"] = (useLogger, getConfig) => {
 
 /***/ }),
 
-/***/ 683:
+/***/ 324:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.useBooleanMenu = void 0;
+/**
+ * 布尔菜单配置
+ * @param configs 配置项
+ * @returns 配置获取函数
+ */
+const useBooleanMenu = (configs) => {
+    // 缓存
+    const cache = {};
+    // 获取配置
+    const getConfig = (key) => {
+        if (cache[key] !== undefined) {
+            return cache[key];
+        }
+        let value = GM_getValue(key, configs[key].defaultValue);
+        cache[key] = value;
+        return value;
+    };
+    // 配置注册
+    let menuIds = [];
+    const registerMenuCommand = () => {
+        menuIds.forEach((id) => {
+            GM_unregisterMenuCommand(id);
+        });
+        menuIds = [];
+        Object.entries(configs).forEach(([key, config]) => {
+            let commandName = getConfig(key) ? "✅" : "❌";
+            commandName += ` ${config.title}`;
+            let id = GM_registerMenuCommand(commandName, () => {
+                let newValue = !getConfig(key);
+                let valueToSet = config.callback ? config.callback(newValue) : newValue;
+                GM_setValue(key, valueToSet);
+                cache[key] = valueToSet;
+                registerMenuCommand();
+            });
+            menuIds.push(id);
+        });
+    };
+    registerMenuCommand();
+    return { getConfig };
+};
+exports.useBooleanMenu = useBooleanMenu;
+
+
+/***/ }),
+
+/***/ 590:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -339,7 +316,7 @@ exports["default"] = (useLogger, getConfig) => {
 
 /***/ }),
 
-/***/ 686:
+/***/ 679:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -367,53 +344,76 @@ exports.useLogger = useLogger;
 
 /***/ }),
 
-/***/ 997:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 801:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.useBooleanMenu = void 0;
-/**
- * 布尔菜单配置
- * @param configs 配置项
- * @returns 配置获取函数
- */
-const useBooleanMenu = (configs) => {
-    // 缓存
-    const cache = {};
-    // 获取配置
-    const getConfig = (key) => {
-        if (cache[key] !== undefined) {
-            return cache[key];
-        }
-        let value = GM_getValue(key, configs[key].defaultValue);
-        cache[key] = value;
-        return value;
-    };
-    // 配置注册
-    let menuIds = [];
-    const registerMenuCommand = () => {
-        menuIds.forEach((id) => {
-            GM_unregisterMenuCommand(id);
-        });
-        menuIds = [];
-        Object.entries(configs).forEach(([key, config]) => {
-            let commandName = getConfig(key) ? "✅" : "❌";
-            commandName += ` ${config.title}`;
-            let id = GM_registerMenuCommand(commandName, () => {
-                let newValue = !getConfig(key);
-                let valueToSet = config.callback ? config.callback(newValue) : newValue;
-                GM_setValue(key, valueToSet);
-                cache[key] = valueToSet;
-                registerMenuCommand();
-            });
-            menuIds.push(id);
-        });
-    };
-    registerMenuCommand();
-    return { getConfig };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.useBooleanMenu = useBooleanMenu;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const menu_1 = __webpack_require__(324);
+const logger_1 = __webpack_require__(679);
+const video_1 = __importDefault(__webpack_require__(590));
+const live_1 = __importDefault(__webpack_require__(255));
+const { debug, useLogger: subLogger } = (0, logger_1.useLogger)("bilibili-ban-pcdn");
+const { getConfig } = (0, menu_1.useBooleanMenu)({
+    blockPlayError: {
+        title: "屏蔽“播放遇到问题？”提示",
+        defaultValue: false,
+    },
+    blockBCacheCDN: {
+        title: "屏蔽视频地区CDN",
+        defaultValue: false,
+    },
+    blockLivePCDN: {
+        title: "屏蔽直播PCDN",
+        defaultValue: false,
+    },
+    keepOneUrl: {
+        title: "保留至少一条播放链接",
+        defaultValue: true,
+    },
+});
+const matchUrls = {
+    live: ["https://www.bilibili.com/blackboard/live/live-activity-player.html", "https://live.bilibili.com/"],
+    video: ["https://www.bilibili.com/video/", "https://www.bilibili.com/list/"],
+    bangumi: ["https://www.bilibili.com/bangumi/play/"],
+};
+const getUrlType = (url) => {
+    for (const [type, patterns] of Object.entries(matchUrls)) {
+        for (const pattern of patterns) {
+            if (url.includes(pattern)) {
+                return type;
+            }
+        }
+    }
+    return null;
+};
+const pageWindow = unsafeWindow;
+// 屏蔽“播放遇到问题？”提示
+if (getConfig("blockPlayError")) {
+    const originalDefineProperty = pageWindow.Object.defineProperty;
+    pageWindow.Object.defineProperty = function (target, propertyKey, descriptor) {
+        if (propertyKey === "videoHasBuffered") {
+            originalDefineProperty(target, "showLoadTimeoutFeedback", {
+                get: () => () => {
+                    debug("屏蔽“播放遇到问题？”提示");
+                },
+                set: () => {
+                    pageWindow.Object.defineProperty = originalDefineProperty;
+                },
+            });
+        }
+        return originalDefineProperty(target, propertyKey, descriptor);
+    };
+}
+if (getUrlType(location.href) === "video" || getUrlType(location.href) === "bangumi") {
+    (0, video_1.default)(subLogger, getConfig);
+}
+else if (getUrlType(location.href) === "live") {
+    (0, live_1.default)(subLogger, getConfig);
+}
 
 
 /***/ })
@@ -449,7 +449,7 @@ exports.useBooleanMenu = useBooleanMenu;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(507);
+/******/ 	var __webpack_exports__ = __webpack_require__(801);
 /******/ 	
 /******/ })()
 ;

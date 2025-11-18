@@ -18,7 +18,6 @@
 
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-var __webpack_exports__ = {};
 
 let maxHeight = GM_getValue("maxHeight", "340px");
 GM_registerMenuCommand("修改高度值", function () {

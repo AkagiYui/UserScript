@@ -4,7 +4,7 @@ const BCACHE_REGEX_PATTERN = /(cn-.*\.bilivideo\.(com|cn))/
 export default (useLogger: (name) => ConsoleLogger, getConfig: (key: string) => boolean) => {
   const { log, debug } = useLogger("video")
 
-  const pageWindow = unsafeWindow as BilibiliVideoPageWindow
+  const pageWindow = unsafeWindow as unknown as BilibiliVideoPageWindow
 
   // 挑出有用的链接
   const removeSomeUrls = (allUrls: string[]) => {

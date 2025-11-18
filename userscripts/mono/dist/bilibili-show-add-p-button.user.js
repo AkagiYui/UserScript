@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         【有谱么】阻止弹窗
-// @version      0.1.0
-// @description  阻止播放时弹出「提示登录」或「使用手机APP打开」的弹窗。
-// @icon         https://cdn.yopu.co/img/logo.bd260b19.svg
-// @match        https://yopu.co/view/*
-// @grant        none
+// @name         【哔哩哔哩】添加分P
+// @version      0.2.2
+// @description  显示“添加分P”的按钮
+// @icon         https://static.hdslb.com/images/favicon.ico
+// @match        https://member.bilibili.com/platform/*
+// @grant        unsafeWindow
 // @run-at       document-start
 // @namespace    https://github.com/AkagiYui/UserScript
 // @supportURL   https://github.com/AkagiYui/UserScript/issues
@@ -17,7 +17,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 686:
+/***/ 679:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -73,26 +73,40 @@ exports.useLogger = useLogger;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
 (() => {
 var exports = __webpack_exports__;
 var __webpack_unused_export__;
 
 __webpack_unused_export__ = ({ value: true });
-const logger_1 = __webpack_require__(686);
-const { log } = (0, logger_1.useLogger)("youpume-ban-model");
-// 保存原始的setTimeout函数
-const originalSetTimeout = window.setTimeout;
-// 重新定义setTimeout函数
-window.setTimeout = function (callback, delay) {
-    log("setTimeout被调用", delay);
-    if (delay === 60 * 1000 || delay === 15 * 1000) {
-        log("hook阻止定时弹窗函数", callback, delay);
-        return;
+const logger_1 = __webpack_require__(679);
+const { log } = (0, logger_1.useLogger)("bilibili-show-add-p-button");
+const pageWindow = unsafeWindow;
+const originalDefineProperty = pageWindow.Object.defineProperty;
+pageWindow.Object.defineProperty = function (target, propertyKey, descriptor) {
+    if (propertyKey === "showAddButton") {
+        originalDefineProperty(target, "canMultiP", {
+            configurable: true,
+            enumerable: true,
+            get: () => {
+                log("显示添加分P按钮");
+                return true;
+            },
+            set: () => { },
+        });
+        // 为确保在转到其他路由再次加载时仍然有效，此处不可恢复defineProperty。
     }
-    return originalSetTimeout(callback, delay);
+    return originalDefineProperty(target, propertyKey, descriptor);
 };
-log("setTimeout已成功被hook");
+const originalXHR = pageWindow.XMLHttpRequest;
+const xhrOpen = originalXHR.prototype.open;
+originalXHR.prototype.open = function (_, url) {
+    if (arguments[1].includes("/x/vu/web/add/v3")) {
+        log("请求分P投稿", JSON.parse(JSON.stringify(arguments)));
+        arguments[1] = arguments[1].replace("/x/vu/web/add/v3", "/x/vu/web/add");
+    }
+    return xhrOpen.apply(this, arguments);
+};
 
 })();
 
