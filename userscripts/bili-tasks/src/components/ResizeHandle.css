@@ -1,0 +1,123 @@
+.resize-handle {
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: all 0.2s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.resize-handle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.resize-handle--dragging {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.resize-handle-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-50%);
+  transition: all 0.2s ease;
+}
+
+.resize-handle:hover .resize-handle-line {
+  background: rgba(255, 255, 255, 0.4);
+  width: 2px;
+}
+
+.resize-handle--dragging .resize-handle-line {
+  background: rgba(255, 255, 255, 0.6);
+  width: 2px;
+}
+
+.resize-handle-grip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.resize-handle:hover .resize-handle-grip {
+  opacity: 1;
+}
+
+.resize-handle--dragging .resize-handle-grip {
+  opacity: 1;
+}
+
+.resize-handle-dot {
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.resize-handle:hover .resize-handle-dot {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.resize-handle--dragging .resize-handle-dot {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* 全局拖拽状态样式 */
+body.resizing {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+body.resizing * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+/* 响应式设计 - 在小屏幕上隐藏 */
+@media (max-width: 1024px) {
+  .resize-handle {
+    display: none;
+  }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  .resize-handle-line {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  .resize-handle:hover .resize-handle-line {
+    background: rgba(255, 255, 255, 1);
+  }
+  
+  .resize-handle-dot {
+    background: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* 减少动画的用户偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+  .resize-handle,
+  .resize-handle-line,
+  .resize-handle-grip {
+    transition: none;
+  }
+}

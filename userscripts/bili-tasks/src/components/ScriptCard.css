@@ -1,0 +1,568 @@
+.script-card {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.script-card:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.script-card.running {
+  border-color: #4CAF50;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+}
+
+.script-header {
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.script-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.script-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.script-description {
+  font-size: 0.9rem;
+  margin: 0 0 12px 0;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.script-category {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.script-category.tool {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+  border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.script-category.operation {
+  background: rgba(255, 152, 0, 0.2);
+  color: #FF9800;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.script-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 20px;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.progress-bar {
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  min-width: 32px;
+}
+
+.expand-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.expand-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.expand-button.expanded {
+  transform: rotate(180deg);
+}
+
+.script-body {
+  padding: 0 20px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideDown 0.3s ease;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.script-parameters {
+  margin-top: 10px;
+  padding-top: 16px;
+}
+
+.parameter-group {
+  margin-bottom: 20px;
+}
+
+.parameter-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.parameter-label .required {
+  color: #f44336;
+  margin-left: 4px;
+}
+
+.script-input,
+.script-select,
+.script-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 专门针对select下拉选项的样式优化 */
+.script-select {
+  /* 确保select元素本身的样式 */
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.script-select option {
+  /* 强制设置option的样式 */
+  background: #2a2a2a;
+  color: #ffffff;
+  padding: 8px 12px;
+  border: none;
+  font-size: 0.9rem;
+}
+
+/* 针对不同浏览器的option样式兼容性 */
+.script-select option:hover,
+.script-select option:focus {
+  background: #3a3a3a;
+  color: #ffffff;
+}
+
+.script-select option:checked,
+.script-select option:selected {
+  background: #4a4a4a;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.script-input:focus,
+.script-select:focus,
+.script-textarea:focus {
+  outline: none;
+  border-color: #2196F3;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.script-input::placeholder,
+.script-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.script-input:disabled,
+.script-select:disabled,
+.script-textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.script-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.script-checkbox input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.script-checkbox input[type="checkbox"]:checked + .checkmark {
+  background: #2196F3;
+  border-color: #2196F3;
+}
+
+.script-checkbox input[type="checkbox"]:checked + .checkmark::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.parameter-description {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 8px 0 0 0;
+  line-height: 1.4;
+}
+
+/* 收藏夹选择器样式 */
+.favorite-selector {
+  position: relative;
+}
+
+.favorite-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.favorite-input {
+  width: 100%;
+  padding-right: 36px; /* 为清空按钮留出空间 */
+}
+
+.favorite-clear-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.favorite-clear-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.favorite-clear-button:active {
+  transform: translateY(-50%) scale(0.95);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.favorite-clear-button svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+/* 通用输入框包装器样式 */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper .script-input {
+  width: 100%;
+  padding-right: 36px; /* 为清空按钮留出空间 */
+}
+
+.textarea-wrapper {
+  position: relative;
+}
+
+.textarea-wrapper .script-textarea {
+  width: 100%;
+  padding-right: 36px; /* 为清空按钮留出空间 */
+}
+
+/* 通用清空按钮样式 - 仅适用于参数输入框 */
+.script-card .clear-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.script-card .clear-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.script-card .clear-button:active {
+  transform: translateY(-50%) scale(0.95);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.script-card .clear-button svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.script-card .clear-button svg path {
+  stroke: currentColor;
+}
+
+/* 备选方案：如果SVG不显示，使用CSS绘制×符号 */
+.script-card .clear-button::before {
+  content: "×";
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* 默认隐藏，只在SVG不可用时显示 */
+}
+
+/* 如果SVG不支持或加载失败，显示备选符号 */
+.script-card .clear-button:not(:has(svg)) {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.script-card .clear-button:not(:has(svg))::before {
+  display: block;
+}
+
+/* 收藏夹输入框的清空按钮继承通用样式 */
+
+/* 多行文本框的清空按钮 */
+.script-card .clear-button-textarea {
+  top: 12px; /* 固定位置，位于右上角 */
+  transform: none;
+}
+
+.script-card .clear-button-textarea:hover {
+  transform: scale(1.1);
+}
+
+.script-card .clear-button-textarea:active {
+  transform: scale(0.95);
+}
+
+/* 确保textarea清空按钮的SVG也正确显示 */
+.script-card .clear-button-textarea svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.favorite-loading,
+.favorite-error {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.favorite-loading {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+  border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.favorite-error {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.retry-button {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  background: rgba(244, 67, 54, 0.3);
+  color: #f44336;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.retry-button:hover {
+  background: rgba(244, 67, 54, 0.4);
+  transform: translateY(-1px);
+}
+
+.retry-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.script-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.execute-button,
+.stop-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.execute-button {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+}
+
+.execute-button:hover {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  transform: translateY(-1px);
+}
+
+.stop-button {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.stop-button:hover {
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
+  transform: translateY(-1px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .script-header {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .script-controls {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .script-body {
+    padding: 0 16px 16px;
+  }
+  
+  .progress-container {
+    min-width: auto;
+    flex: 1;
+  }
+  
+  .progress-bar {
+    flex: 1;
+    min-width: 60px;
+  }
+}

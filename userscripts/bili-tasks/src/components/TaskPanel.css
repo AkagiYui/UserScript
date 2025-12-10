@@ -1,0 +1,235 @@
+.task-panel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.task-panel-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.task-panel-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.task-panel-header p {
+  font-size: 1.1rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+
+.task-panel-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.counter-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.counter-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  color: white;
+}
+
+.counter-display {
+  margin-bottom: 24px;
+}
+
+.counter-value {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  min-width: 120px;
+}
+
+.counter-controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.counter-button--decrease {
+  background: rgba(255, 107, 107, 0.9);
+  color: white;
+}
+
+.counter-button--decrease:hover {
+  background: rgba(255, 107, 107, 1);
+  transform: scale(1.05);
+}
+
+.counter-button--reset {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  width: auto;
+  padding: 0 20px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+}
+
+.counter-button--reset:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.counter-button--increase {
+  background: rgba(107, 255, 107, 0.9);
+  color: white;
+}
+
+.counter-button--increase:hover {
+  background: rgba(107, 255, 107, 1);
+  transform: scale(1.05);
+}
+
+.counter-button:active {
+  transform: scale(0.95);
+}
+
+.counter-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+.placeholder-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.placeholder-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  color: white;
+  text-align: center;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.feature-text h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: white;
+}
+
+.feature-text p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .task-panel-header h1 {
+    font-size: 2rem;
+  }
+  
+  .task-panel-content {
+    gap: 24px;
+  }
+  
+  .counter-section,
+  .placeholder-section {
+    padding: 24px;
+  }
+  
+  .counter-value {
+    font-size: 3rem;
+  }
+  
+  .counter-controls {
+    gap: 12px;
+  }
+  
+  .counter-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .feature-list {
+    gap: 16px;
+  }
+  
+  .feature-item {
+    padding: 12px;
+  }
+  
+  .feature-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+}

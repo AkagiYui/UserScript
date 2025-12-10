@@ -1,3 +1,5 @@
 packages:
   - 'userscripts/*'
   - '!**/test/**'
+onlyBuiltDependencies:
+  - esbuild

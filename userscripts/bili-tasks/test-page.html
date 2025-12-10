@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哔哩哔哩收藏夹测试页面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f5f7;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #00a1d6, #0084c7);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .favlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #e1e2e3;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+        
+        .favlist-item:hover {
+            background-color: #f8f9fa;
+            border-color: #00a1d6;
+        }
+        
+        .favlist-cover {
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .favlist-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .favlist-info p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .notice strong {
+            color: #533f03;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎬 哔哩哔哩收藏夹</h1>
+        <p>这是一个模拟的哔哩哔哩收藏夹页面，用于测试油猴脚本</p>
+    </div>
+    
+    <div class="notice">
+        <strong>测试说明：</strong> 这个页面模拟了哔哩哔哩收藏夹的环境。安装油猴脚本后，您应该能在页面右下角看到一个悬浮按钮。点击按钮将打开任务面板模态框。
+    </div>
+    
+    <div class="content">
+        <h2>我的收藏夹</h2>
+        
+        <div class="favlist-item">
+            <div class="favlist-cover">封面</div>
+            <div class="favlist-info">
+                <h3>技术学习收藏夹</h3>
+                <p>收藏了 42 个视频 · 公开</p>
+            </div>
+        </div>
+        
+        <div class="favlist-item">
+            <div class="favlist-cover">封面</div>
+            <div class="favlist-info">
+                <h3>音乐MV合集</h3>
+                <p>收藏了 28 个视频 · 公开</p>
+            </div>
+        </div>
+        
+        <div class="favlist-item">
+            <div class="favlist-cover">封面</div>
+            <div class="favlist-info">
+                <h3>搞笑视频</h3>
+                <p>收藏了 156 个视频 · 公开</p>
+            </div>
+        </div>
+        
+        <div class="favlist-item">
+            <div class="favlist-cover">封面</div>
+            <div class="favlist-info">
+                <h3>游戏攻略</h3>
+                <p>收藏了 73 个视频 · 仅自己可见</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content">
+        <h2>使用说明</h2>
+        <ol>
+            <li>确保已安装 Tampermonkey 或其他油猴脚本管理器</li>
+            <li>安装生成的 <code>bili-tasks.user.js</code> 脚本</li>
+            <li>刷新此页面，应该能看到右下角的悬浮按钮</li>
+            <li>点击悬浮按钮打开任务面板</li>
+            <li>点击面板右上角的向下箭头关闭面板</li>
+        </ol>
+    </div>
+    
+    <!-- 模拟一些页面内容，确保悬浮按钮不会遮挡重要内容 -->
+    <div class="content">
+        <h2>页面底部内容</h2>
+        <p>这里是页面底部的一些内容，用来测试悬浮按钮的位置是否合适。</p>
+        <p>悬浮按钮应该位于页面右下角，不会遮挡这些重要内容。</p>
+    </div>
+</body>
+</html>

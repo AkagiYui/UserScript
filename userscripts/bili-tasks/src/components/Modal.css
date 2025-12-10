@@ -1,0 +1,225 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modal-fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-backdrop--closing {
+  animation: modal-fade-out 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  animation: modal-slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.modal-content--closing {
+  animation: modal-slide-down 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-header {
+  position: absolute;
+  top: 20px;
+  left: 80px;
+  right: 20px;
+  z-index: 10001;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-repo-link {
+  font-size: 0.9rem;
+  color: #87ceeb;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.modal-repo-link:hover {
+  color: #ffffff;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 8px rgba(135, 206, 235, 0.6);
+  text-decoration: underline;
+}
+
+.modal-close-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.modal-close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(2px);
+}
+
+.modal-close-button:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.modal-close-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+.modal-close-button svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+  display: block;
+  flex-shrink: 0;
+}
+
+.modal-body {
+  flex: 1;
+  padding: 80px 40px 40px;
+  overflow-y: auto;
+  color: white;
+}
+
+/* 动画定义 */
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes modal-slide-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* 确保在油猴脚本环境中不受宿主页面样式影响 */
+.modal-backdrop *,
+.modal-content *,
+.modal-header *,
+.modal-body * {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .modal-header {
+    top: 16px;
+    left: 20px;
+    right: 16px;
+  }
+
+  .modal-header-info {
+    gap: 8px;
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .modal-repo-link {
+    font-size: 0.85rem;
+  }
+
+  .modal-close-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .modal-close-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .modal-body {
+    padding: 60px 20px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header-info {
+    gap: 6px;
+  }
+
+  .modal-title {
+    font-size: 0.9rem;
+  }
+
+  .modal-repo-link {
+    font-size: 0.8rem;
+  }
+}
