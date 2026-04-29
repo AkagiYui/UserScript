@@ -15,15 +15,16 @@
 
 > _详细的**脚本介绍、使用说明、截图演示**等信息，请点击 **\[GreasyFork\]** 前往查看~_  
 
-|  | 脚本名称 | 脚本功能 | 安装 |
-| :----: | :---- | :---- | :----: |
-| [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】屏蔽视频PCDN地址** | 屏蔽**PCDN**和**B站自建地区CDN**视频地址 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/500519)** |
-| [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】添加分P** | 显示投稿页面的“添加分P”按钮 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/502039)** |
-| [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】按键禁用** | 防止误触点赞、投币和收藏 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/490728)** |
-| [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】修改选集列表框高度** | 自定义选集列表的高度 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/489366)** |
-| [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】显示合集中的视频** | 已登录且以自己视角查看时，显示合集中的视频 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/503546)** |
-| [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui) | **【哔哩哔哩】合集杀手** | 批量处理自己订阅的合集。 | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/503859)** |
-| [<img src="https://cdn.yopu.co/img/logo.bd260b19.svg" height="16px" />](https://github.com/AkagiYui) | **【有谱么】阻止弹窗** | 阻止播放时弹出「提示登录」或「使用手机APP打开」的弹窗。 | **[GreasyFork](https://greasyfork.org/scripts/510278)** |
+|                                                                                                                | 脚本名称                           | 脚本功能                                                |                             安装                              |
+| :------------------------------------------------------------------------------------------------------------: | :--------------------------------- | :------------------------------------------------------ | :-----------------------------------------------------------: |
+|     [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui)     | **【哔哩哔哩】屏蔽视频PCDN地址**   | 屏蔽**PCDN**和**B站自建地区CDN**视频地址                | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/500519)** |
+|     [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui)     | **【哔哩哔哩】添加分P**            | 显示投稿页面的“添加分P”按钮                             | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/502039)** |
+|     [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui)     | **【哔哩哔哩】按键禁用**           | 防止误触点赞、投币和收藏                                | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/490728)** |
+|     [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui)     | **【哔哩哔哩】修改选集列表框高度** | 自定义选集列表的高度                                    | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/489366)** |
+|     [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui)     | **【哔哩哔哩】显示合集中的视频**   | 已登录且以自己视角查看时，显示合集中的视频              | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/503546)** |
+|     [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://github.com/AkagiYui)     | **【哔哩哔哩】合集杀手**           | 批量处理自己订阅的合集。                                | **[GreasyFork](https://greasyfork.org/zh-CN/scripts/503859)** |
+|      [<img src="https://cdn.yopu.co/img/logo.bd260b19.svg" height="16px" />](https://github.com/AkagiYui)      | **【有谱么】阻止弹窗**             | 阻止播放时弹出「提示登录」或「使用手机APP打开」的弹窗。 |    **[GreasyFork](https://greasyfork.org/scripts/510278)**    |
+| [<img src="https://fe-static.deepseek.com/platform/favicon.svg" height="16px" />](https://github.com/AkagiYui) | **【DeepSeek】关闭绑定邮箱弹窗**   | 自动关闭 DeepSeek 开放平台的"绑定邮箱"弹窗。            |    **[GreasyFork](https://greasyfork.org/scripts/575861)**    |
 
 > [!WARNING]
 > _所有脚本均没有在 **Chrome、Firefox、Edge 浏览器 + Tampermonkey 扩展** 环境下测试通过！_
